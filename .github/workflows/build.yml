@@ -1,0 +1,70 @@
+name: Build Marlin Firmware
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version name for the release (optional, defaults to timestamp)'
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout config repository
+        uses: actions/checkout@v4
+
+      - name: Clone Marlin firmware
+        run: |
+          git clone --depth 1 --branch bugfix-2.1.x https://github.com/MarlinFirmware/Marlin.git marlin-src
+
+      - name: Copy configuration files
+        run: |
+          cp Configuration.h marlin-src/Marlin/
+          cp Configuration_adv.h marlin-src/Marlin/
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install platformio
+
+      - name: Build firmware
+        run: |
+          cd marlin-src
+          pio run -e LPC1769
+
+      - name: Prepare release artifacts
+        run: |
+          mkdir -p release
+          cp marlin-src/.pio/build/LPC1769/firmware.bin release/
+
+      - name: Determine version name
+        id: version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          elif [[ -n "${{ inputs.version }}" ]]; then
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=build-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Marlin Firmware ${{ steps.version.outputs.version }}
+          files: release/firmware.bin
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
