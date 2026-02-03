@@ -27,7 +27,15 @@ jobs:
         run: |
           cp Configuration.h marlin-src/Marlin/
           cp Configuration_adv.h marlin-src/Marlin/
-          cp pins_custom.h marlin-src/Marlin/src/pins/
+
+      - name: Apply pin overrides
+        run: |
+          cat >> marlin-src/Marlin/src/pins/pins_postprocess.h << 'EOF'
+
+          // Custom pin overrides for Smoothieboard spindle
+          #undef FAN1_PIN
+          #define FAN1_PIN -1
+          EOF
 
       - name: Setup Python
         uses: actions/setup-python@v5

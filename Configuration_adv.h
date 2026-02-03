@@ -3752,7 +3752,7 @@
   #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
-  #define SPINDLE_LASER_PWM_PIN        P2_04   // Smoothieboard PWM pin for spindle (FAN1 disabled in pins_custom.h)
+  #define SPINDLE_LASER_PWM_PIN        P2_04   // Smoothieboard PWM pin for spindle (FAN1 disabled in pins_postprocess.h)
   #if ENABLED(SPINDLE_LASER_USE_PWM)
     #define SPINDLE_LASER_PWM_INVERT    false  // Set to "true" if the speed/power goes up when you want it to go slower
     #define SPINDLE_LASER_FREQUENCY     2500   // (Hz) Spindle/laser frequency (only on supported HALs: AVR, ESP32, and LPC)
