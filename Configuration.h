@@ -75,6 +75,9 @@
 #define MOTHERBOARD BOARD_SMOOTHIEBOARD
 #endif
 
+// Custom pins file for overriding board pin definitions
+#define CUSTOM_PINS_FILE "pins_custom.h"
+
 // @section serial
 
 /**
