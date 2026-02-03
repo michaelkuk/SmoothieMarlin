@@ -76,7 +76,7 @@
 #endif
 
 // Custom pins file for overriding board pin definitions
-#define CUSTOM_PINS_FILE "pins_custom.h"
+#define CUSTOM_PINS_FILE "src/pins/pins_custom.h"
 
 // @section serial
 

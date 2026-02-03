@@ -27,7 +27,7 @@ jobs:
         run: |
           cp Configuration.h marlin-src/Marlin/
           cp Configuration_adv.h marlin-src/Marlin/
-          cp pins_custom.h marlin-src/Marlin/
+          cp pins_custom.h marlin-src/Marlin/src/pins/
 
       - name: Setup Python
         uses: actions/setup-python@v5
