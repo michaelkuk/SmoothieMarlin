@@ -180,8 +180,7 @@
 #if ENABLED(SWITCHING_NOZZLE)
 #define SWITCHING_NOZZLE_SERVO_NR 0
 #define SWITCHING_NOZZLE_SERVO_ANGLES                                          \
-  {0, 90}                                                                      \
-  // A pair of angles for { E0, E1 }.
+  {0, 90} // A pair of angles for { E0, E1 }.
 #define SWITCHING_NOZZLE_SERVO_DWELL                                           \
   2500 // Dwell time to wait for servo to make physical move
 #define SWITCHING_NOZZLE_LIFT_TO_PROBE // Lift toolheads out of the way while
@@ -583,8 +582,7 @@
 #endif
 
 #define FILAMENT_HEAT_CAPACITY_PERMM                                           \
-  {5.6e-3f}                                                                    \
-  // 0.0056 J/K/mm for 1.75mm PLA (0.0149 J/K/mm for 2.85mm PLA).
+  {5.6e-3f} // 0.0056 J/K/mm for 1.75mm PLA (0.0149 J/K/mm for 2.85mm PLA).
 
 #define MPC_SMOOTHING_FACTOR                                                   \
   0.5f // (0.0...1.0) Noisy temperature sensors may need a lower value for
@@ -863,7 +861,8 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[,
  * E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT {100, 100, 1600}
+// Overit treti hodnotu - mela by byt 1600, ale nechce se ji
+#define DEFAULT_AXIS_STEPS_PER_UNIT {100, 100, 100}
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1693,8 +1692,7 @@
 #endif
 
 #if ENABLED(NEOPIXEL_LED)
-#define NEOPIXEL_TYPE                                                          \
-  NEO_GRBW // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
+#define NEOPIXEL_TYPE NEO_GRBW // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
 #define NEOPIXEL_PIXELS                                                        \
   30 // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is
 #define NEOPIXEL_IS_SEQUENTIAL  // Sequential display for temperature change -
